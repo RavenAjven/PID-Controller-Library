@@ -20,6 +20,7 @@ typedef struct PID_Controller_TypeDef
 {
 float TargetValue; /*Target Value (Целевое значение для регулятора)*/
 float CurrentValue; /*CurrentValue (Текущее, измеренное значение)*/
+float (*PID_CurrentValueUpdateCallback) (void);
 /*-------------------------------------------------------------------*/
 /*Coefficients (Коэффициенты)*/
 float Eror_Ratio; /*Error Gain Coefficient (Коэффициент усиления ошибки)*/
@@ -73,6 +74,10 @@ void PID_Start (PID_Controller_TypeDef *pPID_Controller);
 /*Stop of the PID controller
 (Стоп ПИД-Контроллера)*/
 void PID_Stop(PID_Controller_TypeDef *pPID_Controller);
+
+void PID_Init (void);
+
+void PID_Deinit(void);
 
 /*Call it in a program loop
 (Вызывать в цикле программы)*/

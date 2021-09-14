@@ -32,6 +32,7 @@ void PID_Processing(PID_Controller_TypeDef *pPID_Controller)
 {
   if (pPID_Controller->PID_Controller_Properties & PID_CONTROLLER_ENABLE)
   {
+        pPID_Controller->CurrentValue = pPID_Controller->PID_CurrentValueUpdateCallback();
 	pPID_Controller->ErrorPreviusValue = pPID_Controller->ErrorT;    
 	pPID_Controller->Reg_Proportional = pPID_Controller->Prop_Ratio * pPID_Controller->ErrorT;
         pPID_Controller->Integral = pPID_Controller->Integral + (pPID_Controller->ErrorT + pPID_Controller->ErrorPreviusValue)/2;
