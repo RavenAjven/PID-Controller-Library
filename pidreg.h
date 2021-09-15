@@ -2,7 +2,6 @@
 PID Controller library.
 -----------------------------------------------------------------
 Use a PID_Controller_TypeDef to create one instance of controller
-Eniieucoeoa PID_Controller_TypeDef aey nicaaiey iaiiai yecaiiey?a eiio?ieea?a
 -----------------------------------------------------------------
 Ivan Kondrashov
 http://github.com/RavenAjven
