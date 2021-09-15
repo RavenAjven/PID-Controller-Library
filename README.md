@@ -10,14 +10,14 @@ PID_Controller_TypeDef Example1_PID, Example2_PID;
 
 You should create a callback function that returns *float*, from which the measured value will be updated:
 ```C
-float ExampleUpdateValueCallback_1 (void)
+float ExampleUpdateFeedbackValueCallback_1 (void)
 {
 uint16_t adc_data;
 adc_data = ADC1->DR;
 return (float)adc_data;
 }
 
-float ExampleUpdateValueCallback_2 (void)
+float ExampleUpdateFeedbackValueCallback_2 (void)
 {
 uint16_t adc_data;
 adc_data = ADC1->DR;
