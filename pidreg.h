@@ -55,10 +55,10 @@ uint8_t PID_Controller_Properties;
 /*List of coefficients*/
 typedef enum 
 {
-EC_ERROR_COEF,
-PC_PROPORTIONAL_COEF,
-IC_INTEGRAL_COEF,
-DC_DERIVATIVE_COEF
+PID_ERROR_COEF,
+PID_PROPORTIONAL_COEF,
+PID_INTEGRAL_COEF,
+PID_DERIVATIVE_COEF
 } PID_CoefficientList;
 
 /*Start of the PID controller*/

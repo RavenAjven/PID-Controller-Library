@@ -54,7 +54,7 @@ void PID_Start(PID_Controller_TypeDef *pPID_Controller)
 (Cтоп ПИД-Контроллера*/
 void PID_Stop(PID_Controller_TypeDef *pPID_Controller)
 {
-	pPID_Controller->PID_Controller_Properties &= !PID_CONTROLLER_ENABLE;
+	pPID_Controller->PID_Controller_Properties &= ~PID_CONTROLLER_ENABLE;
 }
 
 void PID_Processing(PID_Controller_TypeDef *pPID_Controller)
@@ -84,22 +84,22 @@ void PID_SetNewTargetValue(PID_Controller_TypeDef *pPID_Controller, float NewTar
 void PID_SetNewCoefficient(PID_Controller_TypeDef *pPID_Controller, PID_CoefficientList PID_WhatChange, float NewtValue)
 {   
 	switch (PID_WhatChange) { /*What change? (Что изменить?)*/
-	case EC_ERROR_COEF: {
+	case PID_ERROR_COEF: {
                 /*Error Gain Coefficient (Коэффициент усиления ошибки)*/
 		pPID_Controller->Eror_Ratio = NewtValue;
 		break;
 	}
-	case PC_PROPORTIONAL_COEF: {
+	case PID_PROPORTIONAL_COEF: {
                 /*Proportinal Coefficient (Пропорциональный коэффициент)*/
 		pPID_Controller->Prop_Ratio = NewtValue;
 		break;
 	}
-	case IC_INTEGRAL_COEF: {
+	case PID_INTEGRAL_COEF: {
                 /*Integral Coefficient (Интегральный Коэффициент)*/
 		pPID_Controller->Integral_Ratio = NewtValue;
 		break;
 	}
-	case DC_DERIVATIVE_COEF: {
+	case PID_DERIVATIVE_COEF: {
                 /*Derivative Coefficient (Дифференциальный Коэффициент)*/
 		pPID_Controller->Derivative_Ratio = NewtValue;
 		break;
