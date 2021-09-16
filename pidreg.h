@@ -10,34 +10,34 @@ vpiroman@gmail.com
 -----------------------------------------------------------------
 */
 
-#ifndef  PIDREG_H
-#define  PIDREG_H
+#ifndef PIDREG_H
+#define PIDREG_H
 
-/*Definition of the "PID Controller" type*/
-typedef struct PID_Controller_TypeDef 
-{
-float TargetValue; /*Target Value*/
-float CurrentValue; /*CurrentValue*/
-float (*PID_CurrentValueUpdateCallback) (void);
-/*-------------------------------------------------------------------*/
-/*Coefficients*/
-float Eror_Ratio; /*Error Gain Coefficient*/
-float Prop_Ratio; /*Proportinal Coefficient*/
-float Integral; /*Integral Of Error*/
-float Integral_Ratio; /*Integral Coefficient*/
-float Derivative_Ratio; /*Derivative Coefficient*/
-/*-------------------------------------------------------------------*/
-/*Components*/
-float ErrorT; /*Error*/
-float ErrorPreviusValue; /*Previus Error*/
-float Reg_Proportional; /*Proportinal Component*/
-float Reg_Integral; /*Integral Component*/
-float Reg_Derivative; /*Derivative Component*/
-/*-------------------------------------------------------------------*/
-float PID_ControllerOut; /*PID_ControllerOut*/
+/*Определение типа данных "PID Controller"*/
+typedef struct PID_Controller_TypeDef {
+	float TargetValue;			       /*Уставка*/
+	float CurrentValue;			       /*Текущее измеренное значение в цепи обратной связи*/
+	float (*PID_CurrentValueUpdateCallback)(void); /*Коллбэк для обновления измеренного значения, обратная связь*/
+	/*-------------------------------------------------------------------*/
+	/*Coefficients*/
+	float Eror_Ratio;	/*Коэффициент усиления ошибки рассогласования*/
+	float Prop_Ratio;	/*Пропорциональный коэффициент*/
+	float Integral;		/*Накопление интеграла ошибки*/
+	float Integral_Ratio;	/*Интегральный коэффициент*/
+	float Derivative_Ratio; /*Дифференциальный коэффициент*/
+	/*-------------------------------------------------------------------*/
+	/*Components*/
+	float ErrorT;		 /*Ошибка рассогласования*/
+	float ErrorPreviusValue; /*Предыдущее значение ошибки рассогласования*/
+	float Reg_Proportional;	 /*Пропорциональная составляющая*/
+	float Reg_Integral;	 /*Интегральная составляющая*/
+	float Reg_Derivative;	 /*Дифференциальная составляющая*/
+	/*-------------------------------------------------------------------*/
+	float PID_ControllerOut; /*Выход управляющего значения*/
+	/*-------------------------------------------------------------------*/
 
-/*Properties and flags of the controller instance
-This uses the individual bits in the variable "PID_Controller_Properties"
+	/*Свойства и флаги экземпляра контроллера
+Использует отдельные биты в переменной "PID_Controller_Properties"
 [0] - Enabled/Disabled
 [1] - Reserved
 [2] - Reserved
@@ -47,39 +47,41 @@ This uses the individual bits in the variable "PID_Controller_Properties"
 [6] - Reserved
 [7] - Reserved
 */
-uint8_t PID_Controller_Properties;
-#define PID_CONTROLLER_ENABLE 0x01
-/*-------------------------------------------------------------------*/
+	uint8_t PID_Controller_Properties;
+#define PID_CONTROLLER_ENABLE 0x01 /*Битовая маска для 0 бита*/
+	/*-------------------------------------------------------------------*/
 } PID_Controller_TypeDef;
 
-/*List of coefficients*/
-typedef enum 
-{
-PID_ERROR_COEF,
-PID_PROPORTIONAL_COEF,
-PID_INTEGRAL_COEF,
-PID_DERIVATIVE_COEF
+/*Перечисление коэффициентов, используется в функции PID_SetNewCoefficient*/
+typedef enum {
+	PID_ERROR_COEF,
+	PID_PROPORTIONAL_COEF,
+	PID_INTEGRAL_COEF,
+	PID_DERIVATIVE_COEF
 } PID_CoefficientList;
 
-/*Start of the PID controller*/
-void PID_Start (PID_Controller_TypeDef *pPID_Controller);
+/*Стоп контроллера*/
+void PID_Start(PID_Controller_TypeDef *pPID_Controller);
 
-/*Stop of the PID controller*/
+/*Старт контроллера*/
 void PID_Stop(PID_Controller_TypeDef *pPID_Controller);
 
-void PID_Init (PID_Controller_TypeDef *pPID_Controller, float TargetValue, float Error_Ratio, float Prop_Ratio, float Integral_Ratio, float Derivative_Ratio, float (*PID_CurrentValueUpdateCallback)(void));
+/*Инициализация контроллера*/
+void PID_Init(PID_Controller_TypeDef *pPID_Controller, float TargetValue, float Error_Ratio, float Prop_Ratio, float Integral_Ratio, float Derivative_Ratio, float (*PID_CurrentValueUpdateCallback)(void));
 
+/*Деинициализация контроллера*/
 void PID_Deinit(PID_Controller_TypeDef *pPID_Controller);
 
-float PID_GetControllerOut (PID_Controller_TypeDef *pPID_Controller);
+/*Получить управляющее значение контроллера*/
+float PID_GetControllerOut(PID_Controller_TypeDef *pPID_Controller);
 
-/*Call it in a program loop*/
-void PID_Processing (PID_Controller_TypeDef *pPID_Controller);
+/*Обработка ПИД. Вызвать в цикле программы или в задаче RTOS*/
+void PID_Processing(PID_Controller_TypeDef *pPID_Controller);
 
-/*Changing the target value*/
-void PID_SetNewTargetValue (PID_Controller_TypeDef *pPID_Controller, float NewTarget);
+/*Задать новую уставку*/
+void PID_SetNewTargetValue(PID_Controller_TypeDef *pPID_Controller, float NewTarget);
 
-/*Changing the coefficient value*/
+/*Изменить коэффициент*/
 void PID_SetNewCoefficient(PID_Controller_TypeDef *pPID_Controller, PID_CoefficientList PID_WhatChange, float NewtValue);
 
 #endif
