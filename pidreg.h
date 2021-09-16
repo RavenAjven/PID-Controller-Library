@@ -64,10 +64,10 @@ typedef enum {
 	PID_DERIVATIVE_COEF
 } PID_CoefficientList;
 
-/*Стоп контроллера*/
+/*Старт контроллера*/
 void PID_Start(PID_Controller_TypeDef *pPID_Controller);
 
-/*Старт контроллера*/
+/*Стоп контроллера*/
 void PID_Stop(PID_Controller_TypeDef *pPID_Controller);
 
 /*Инициализация контроллера*/
