@@ -11,7 +11,10 @@ vpiroman@gmail.com
 */
 
 #ifndef PIDREG_H
+
 #define PIDREG_H
+
+#include <stdint.h>
 
 /*Определение типа данных "PID Controller"*/
 typedef struct PID_Controller_TypeDef {
@@ -47,7 +50,8 @@ typedef struct PID_Controller_TypeDef {
 [6] - Reserved
 [7] - Reserved
 */
-	uint8_t PID_Controller_Properties;
+
+uint8_t PID_Controller_Properties;
 #define PID_CONTROLLER_ENABLE 0x01 /*Битовая маска для 0 бита*/
 	/*-------------------------------------------------------------------*/
 } PID_Controller_TypeDef;
