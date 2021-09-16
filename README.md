@@ -20,7 +20,7 @@ return (float)adc_data;
 float ExampleUpdateFeedbackValueCallback_2 (void)
 {
 uint16_t adc_data;
-adc_data = ADC1->DR;
+adc_data = ADC2->DR;
 return (float)adc_data;
 }
 ```
